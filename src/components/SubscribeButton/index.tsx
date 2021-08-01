@@ -4,12 +4,10 @@ interface SubscribeButtonProps {
   priceId: string;
 }
 
-export function SubscribeButton({ priceId }: SubscribeButtonProps) {
+export default function SubscribeButton({ priceId }: SubscribeButtonProps) {
   return (
     <button type="button" className={styles.subscribeButton}>
       Subscribe now
     </button>
   )
 }
-
-export default SubscribeButton

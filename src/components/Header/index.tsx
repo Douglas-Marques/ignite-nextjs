@@ -1,8 +1,8 @@
-import { SignInButton } from '../SignInButton'
+import SignInButton from '../SignInButton'
 
 import styles from './styles.module.scss'
 
-export function Header() {
+export default function Header() {
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
@@ -17,5 +17,3 @@ export function Header() {
     </header>
   )
 }
-
-export default Header
