@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { GetStaticProps } from 'next'
+import Link from 'next/link'
 import Prismic from '@prismicio/client'
 import { RichText } from 'prismic-dom'
 
@@ -22,17 +23,19 @@ export default function Posts({ posts }: PostsProps) {
   return (
     <>
       <Head>
-        <title>Posts | ignews</title>
+        <title>Posts | ig.news</title>
       </Head>
 
       <main className={styles.container}>
         <div className={styles.posts}>
           {posts.map(post => (
-            <a key={post.slug} href="#">
-              <time>{post.updated_at}</time>
-              <strong>{post.title}</strong>
-              <p>{post.excerpt}</p>
-            </a>
+            <Link href={`/posts/preview/${post.slug}`} key={post.slug}>
+              <a>
+                <time>{post.updated_at}</time>
+                <strong>{post.title}</strong>
+                <p>{post.excerpt}</p>
+              </a>
+            </Link>
           ))}
         </div>
       </main>
@@ -47,7 +50,7 @@ export const getStaticProps: GetStaticProps = async () => {
     Prismic.predicates.at('document.type', 'post')
   ], {
     fetch: ['post.title', 'post.content'],
-    pageSize: 100,
+    pageSize: 100
   })
 
   const posts = response.results.map(post => ({
@@ -64,6 +67,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       posts
-    }
+    },
+    revalidate: 60 * 30 //30min
   }
 }
